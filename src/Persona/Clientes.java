@@ -1,5 +1,5 @@
 package Persona;
 
-public class Cliente {
+public class Clientes {
 
 }
