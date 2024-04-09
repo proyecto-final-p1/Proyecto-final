@@ -1,7 +1,7 @@
 package Persona;
 
 public abstract class Persona {
-     protected String nombre;
+    protected String nombre;
     protected String apellido;
     protected int edad;
     protected String usuario;
