@@ -5,8 +5,8 @@ class Empleados extends Personas{
 	protected String usuario;
     protected int contraseña;
 	
-	public Empleados(String nombre, String apellido, int edad, String usuario, int contraseña) {
-		super(nombre, apellido, edad);
+	public Empleados(String nombre, String apellido, String sexo, String cedula, String telefono,String correo,String direccion, String usuario, int contraseña) {
+		super(nombre, apellido,sexo , cedula , telefono , correo , direccion);
 		this.usuario = usuario;
 		this.contraseña = contraseña;
 	}
