@@ -1,20 +1,29 @@
 package Persona;
 
 abstract class Personas {
-    protected String nombre;
-    protected String apellido;
-    protected int edad;
     
-    public Personas(String nombre, String apellido, int edad) {
+	protected String nombre;
+	protected String apellido;
+	protected String sexo;
+	protected String cedula;
+	protected String telefono;
+	protected String correo;
+	protected String direccion;
+    
+    public Personas(String nombre, String apellido, String sexo, String cedula, String telefono,String correo,String direccion) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.edad = edad;
+        this.sexo = sexo;
+        this.cedula = cedula;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.direccion = direccion;
     }
     
-    String getNombre() {
+    String getnombre() {
     	return nombre;
     	}
-    void setNombre (String nombre) {
+    void setnombre (String nombre) {
     	this.nombre = nombre;
     }
     
@@ -25,12 +34,39 @@ abstract class Personas {
     	this.apellido = apellido;
     }
     
-    int getEdad() {
-    	return edad;
+    String getSexo() {
+    	return sexo;
+    	}
+    void setSexo (String sexo) {
+    	this.sexo = sexo;
     }
-    void setEdad (int edad) {
-    	this.edad = edad;
+ 
+    String getCedula() {
+    	return cedula;
+    	}
+    void setCedula (String cedula) {
+    	this.cedula = cedula;
     }
-
+    
+    String getTelefono() {
+    	return telefono;
+    	}
+    void setTelefono (String telefono) {
+    	this.telefono = telefono;
+    }
+    
+    String getCorreo() {
+    	return correo;
+    	}
+    void setCorreo (String correo) {
+    	this.correo = correo;
+    }
+    
+    String getDireccion() {
+    	return direccion;
+    	}
+    void setDireccion (String direccion) {
+    	this.direccion = direccion;
+    }
 }
 
