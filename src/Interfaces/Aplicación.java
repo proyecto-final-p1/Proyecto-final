@@ -25,8 +25,8 @@ public class Aplicación extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JMenuItem mntmNewMenuItem, mntmNewMenuItem_9, mntmNewMenuItem_13, mntmNewMenuItem_16, mntmNewMenuItem_22;
-	private JButton btnCaja, btnVentas;
+	private JMenuItem mntmNewMenuItem, mntmNewMenuItem_1, mntmNewMenuItem_9, mntmNewMenuItem_13, mntmNewMenuItem_16, mntmNewMenuItem_22;
+	private JButton btnCaja, btnVentas, btnClientes;
 
 	/**
 	 * Launch the application.
@@ -63,8 +63,9 @@ public class Aplicación extends JFrame implements ActionListener{
 		mnNewMenu.add(mntmNewMenuItem);
 		mntmNewMenuItem.addActionListener(this);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Salir");
+		mntmNewMenuItem_1 = new JMenuItem("Salir");
 		mnNewMenu.add(mntmNewMenuItem_1);
+		mntmNewMenuItem_1.addActionListener(this);
 		
 		JMenu mnNewMenu_1 = new JMenu("Registro\r\n");
 		mnNewMenu_1.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -181,8 +182,9 @@ public class Aplicación extends JFrame implements ActionListener{
 		JButton btnProductos = new JButton("Productos");
 		btnProductos.setFont(new Font("Segoe UI", Font.PLAIN, 9));
 		
-		JButton btnClientes = new JButton("Clientes");
+		btnClientes = new JButton("Clientes");
 		btnClientes.setFont(new Font("Segoe UI", Font.PLAIN, 9));
+		btnClientes.addActionListener(this);
 		
 		btnCaja = new JButton("Caja");
 		btnCaja.setFont(new Font("Segoe UI", Font.PLAIN, 9));
@@ -289,6 +291,11 @@ public class Aplicación extends JFrame implements ActionListener{
 			inicioSesion inicioSesion = new inicioSesion();
 			inicioSesion.setVisible(true);	
 		}
-		
+		else if(e.getSource() == btnClientes) {
+			Clientes.main(null);
+		}
+		else if (e.getSource() == mntmNewMenuItem_1) {
+			dispose();
+		}
 	}
 }
