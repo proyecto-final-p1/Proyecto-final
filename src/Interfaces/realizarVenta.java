@@ -76,9 +76,7 @@ public class realizarVenta extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public realizarVenta() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 929, 671);
