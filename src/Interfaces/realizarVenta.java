@@ -2,6 +2,7 @@ package Interfaces;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.awt.EventQueue;
@@ -13,15 +14,25 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.ScrollPane;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class realizarVenta extends JFrame {
 
@@ -65,9 +76,7 @@ public class realizarVenta extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public realizarVenta() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 929, 671);
@@ -212,7 +221,7 @@ public class realizarVenta extends JFrame {
 		JButton btnNewButton_1_2_1_1 = new JButton("Imprimir");
 		btnNewButton_1_2_1_1.setBounds(796, 201, 96, 46);
 		contentPane.add(btnNewButton_1_2_1_1);
-		//btnNewButton_1_2_1_1.addActionListener(e -> imprimirVenta());
+		btnNewButton_1_2_1_1.addActionListener(e -> imprimirVenta());
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(46, 363, 859, 167);
@@ -264,18 +273,38 @@ public class realizarVenta extends JFrame {
 		contentPane.add(btnNewButton_1_2_1_1_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Agregar");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 agregarDatosATabla();
+			}
+		});
 		btnNewButton_1_1.setBounds(465, 303, 98, 37);
 		contentPane.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_1_1 = new JButton("Limpiar");
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarTablaYBaseDatos();
+			}
+		});
 		btnNewButton_1_1_1.setBounds(571, 303, 96, 37);
 		contentPane.add(btnNewButton_1_1_1);
 		
 		JButton btnNewButton_1_1_2 = new JButton("Eliminar");
+		btnNewButton_1_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarVenta();	
+				}
+		});
 		btnNewButton_1_1_2.setBounds(677, 303, 96, 37);
 		contentPane.add(btnNewButton_1_1_2);
 		
 		JButton btnNewButton_1_1_3 = new JButton("Salir");
+		btnNewButton_1_1_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salir();
+				}
+		});
 		btnNewButton_1_1_3.setBounds(783, 303, 96, 37);
 		contentPane.add(btnNewButton_1_1_3);
 		
@@ -347,9 +376,127 @@ public class realizarVenta extends JFrame {
 
 
 
-	private Object cancelarVenta() {
-		// TODO Auto-generated method stub
-		return null;
+	protected void salir() {
+		 int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
+		    if (confirmacion == JOptionPane.YES_OPTION) {
+		        dispose(); // Cierra la ventana actual
+		    }
+		}
+
+	protected void eliminarVenta() {
+		  int filaSeleccionada = tablaVentas.getSelectedRow();
+		    if (filaSeleccionada != -1) { // Verificar si se ha seleccionado una fila
+		        DefaultTableModel model = (DefaultTableModel) tablaVentas.getModel();
+		        int idVenta = (int) model.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID está en la primera columna
+
+		        model.removeRow(filaSeleccionada); // Eliminar la fila seleccionada de la tabla en la interfaz gráfica
+
+		        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+		            // Sentencia SQL para eliminar el registro correspondiente de la tabla en la base de datos
+		            String sql = "DELETE FROM ventas WHERE id = ?";
+		            PreparedStatement statement = conn.prepareStatement(sql);
+		            statement.setInt(1, idVenta); // Pasa el ID como parámetro
+		            statement.executeUpdate();
+		        } catch (SQLException ex) {
+		            JOptionPane.showMessageDialog(null, "Error al eliminar la venta de la tabla y la base de datos: " + ex.getMessage());
+		        }
+		    } else {
+		        JOptionPane.showMessageDialog(null, "Por favor, seleccione una venta para eliminar.");
+		    }
+		}
+
+
+	protected void limpiarTablaYBaseDatos() {
+		 DefaultTableModel model = (DefaultTableModel) tablaVentas.getModel();
+		    model.setRowCount(0); // Limpiar la tabla
+
+		    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+		        // Sentencia SQL para eliminar todos los registros de la tabla en la base de datos
+		        String sql = "DELETE FROM ventas";
+		        PreparedStatement statement = conn.prepareStatement(sql);
+		        statement.executeUpdate();
+		        
+		        // Opcionalmente, puedes hacer lo mismo para otras tablas si es necesario
+		        // Puedes agregar más sentencias SQL para eliminar datos de otras tablas aquí
+		    } catch (SQLException ex) {
+		        JOptionPane.showMessageDialog(null, "Error al limpiar la tabla y la base de datos: " + ex.getMessage());
+		    }
+		}
+
+	protected void agregarDatosATabla() {
+		 DefaultTableModel model = (DefaultTableModel) tablaVentas.getModel();
+		 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+		        String sql = "SELECT * FROM ventas"; // Consulta para obtener todos los datos de la tabla ventas al presionar agregar
+		        PreparedStatement statement = conn.prepareStatement(sql);
+		        ResultSet resultSet = statement.executeQuery();
+		        while (resultSet.next()) {
+		            Object[] rowData = {
+		                resultSet.getString("cliente"),
+		                resultSet.getString("ruc"),
+		                resultSet.getString("producto"),
+		                resultSet.getString("concentracion"),
+		                resultSet.getString("comprobante"),
+		                resultSet.getString("stock"),
+		                resultSet.getString("precio"),
+		                resultSet.getString("numero"),
+		                resultSet.getString("fecha"),
+		                resultSet.getString("serie")
+		                // Agrega aquí más columnas según sea necesario
+		            };
+		            model.addRow(rowData);
+		        }
+		    } catch (SQLException ex) {
+		        JOptionPane.showMessageDialog(null, "Error al agregar datos a la tabla: " + ex.getMessage());
+		    }
+
+	}
+
+	private Object imprimirVenta() {
+		 try {
+		        // Crea un objeto PrinterJob para administrar la impresión
+		        PrinterJob printerJob = PrinterJob.getPrinterJob();
+
+		        // Configura el contenido a imprimir utilizando un Printable
+		        printerJob.setPrintable(new Printable() {
+		            @Override
+		            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+		                if (pageIndex > 0) {
+		                    return Printable.NO_SUCH_PAGE;
+		                }
+
+		                // Obtiene el área imprimible
+		                Graphics2D g2d = (Graphics2D) graphics;
+		                g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+		                // Dibuja el contenido de la tabla de ventas
+		                tablaVentas.printAll(graphics);
+
+		                return Printable.PAGE_EXISTS;
+		            }
+		        });
+
+		        // Muestra el diálogo de impresión al usuario
+		        if (printerJob.printDialog()) {
+		            // Inicia la impresión
+		            printerJob.print();
+		        }
+		    } catch (PrinterException ex) {
+		        JOptionPane.showMessageDialog(null, "Error al imprimir: " + ex.getMessage());
+		    }		return null;
+	}
+
+	private void cancelarVenta() {
+
+		 limpiarCampos(); 
+
+		    DefaultTableModel model = (DefaultTableModel) tablaVentas.getModel();
+		    model.setRowCount(0);
+
+		    JOptionPane.showMessageDialog(null, "Venta cancelada");
+		    
+		    // Cierra la ventana actual
+		    dispose();
+
 	}
 
 	private Object guardarVenta() {
@@ -367,9 +514,9 @@ public class realizarVenta extends JFrame {
 		  String total = textTotal.getText();
 		  
 		  try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
-			  String sql = "INSERT INTO ventas (cliente, ruc, producto, concentracion, comprobante, stock, precio, numero, fecha, serie) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			   String sql = "INSERT INTO ventas (cliente, ruc, producto, concentracion, comprobante, stock, precio, numero, fecha, serie) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 		        PreparedStatement statement = conn.prepareStatement(sql);
-		        statement.setString(1, cliente);
+		        statement.setString(1, cliente); 
 		        statement.setString(2, ruc);
 		        statement.setString(3, producto);
 		        statement.setString(4, concentracion);
@@ -379,27 +526,31 @@ public class realizarVenta extends JFrame {
 		        statement.setString(8, numero);
 		        statement.setString(9, fecha);
 		        statement.setString(10, serie);
-		        statement.setString(11, cantidad);
-		        statement.setString(12, total);
-		        
-	            int rowsInserted = statement.executeUpdate(); 
 
-	            if (rowsInserted > 0) {
-	                JOptionPane.showMessageDialog(null, "Venta guardada exitosamente");
-	                DefaultTableModel model = (DefaultTableModel) tablaVentas.getModel();
-	                model.addRow(new Object[]{cliente, ruc});
-	            }
-	        } catch (SQLException ex) {
-	            JOptionPane.showMessageDialog(null, "Error al guardar la venta: " + ex.getMessage());
-	        }
+		        int rowsInserted = statement.executeUpdate(); 
+
+		        if (rowsInserted > 0) {
+		            JOptionPane.showMessageDialog(null, "Venta guardada exitosamente");
+		        }
+		    } catch (SQLException ex) {
+		        JOptionPane.showMessageDialog(null, "Error al guardar la venta: " + ex.getMessage());
+		    }
 		  return null;
 	}
 
 	private Object limpiarCampos() {
-		   textCliente.setText("");  
-	        textRuc.setText(""); 
-	        textComprobante.setText(""); 
-	        textFecha.setText(""); 		
+		 textCliente.setText("");
+		    textRuc.setText("");
+		    textProducto.setText("");
+		    textConcentracion.setText("");
+		    textComprobante.setText("");
+		    textStock.setText("");
+		    textPrecio.setText("");
+		    textNumero.setText("");
+		    textFecha.setText("");
+		    textSerie.setText("");		
+		    textCantidad.setText("");
+		    textTotal.setText("");
 	        return null;
 	}
 }
