@@ -1,33 +1,52 @@
 package Persona;
 
-import Producto.Productos;
-
-public class Proveedor extends Productos {
-    private String proveedorNombre;
-    private String proveedorContacto;
-
-    Proveedor(int id, String presentacion, String descripcion, String concentracion, int stock, double costo, double venta, int vencimiento, String registro_Sanitario, String laboratorio, String estado, String proveedorNombre, String proveedorContacto) {
-        super(id, presentacion, descripcion, concentracion, stock, costo, venta, vencimiento, registro_Sanitario, laboratorio, estado);
-        this.proveedorNombre = proveedorNombre;
-        this.proveedorContacto = proveedorContacto;
+public class Proveedor extends Personas{
+	
+	protected String rnc;
+	protected String banco;
+	protected String cuenta;
+	protected String estado;
+	
+	
+    public Proveedor(int id, String nombre, String apellido, String sexo, String cedula, String telefono, String correo, String direccion, String rnc, String banco, String cuenta, String estado) {
+		super(id, nombre, apellido, sexo, cedula, telefono, correo, direccion);
+		this.rnc = rnc;
+		this.banco = banco;
+		this.banco = banco;
+		this.estado = estado;
     }
 
     
-    public String getProveedorNombre() {
-        return proveedorNombre;
+    public String getRNC() {
+        return rnc;
     }
-
-    public String getProveedorContacto() {
-        return proveedorContacto;
+    
+    void setRNC(String rnc) {
+    	this.rnc = rnc;
     }
-
-    public void setProveedorNombre(String proveedorNombre) {
-        this.proveedorNombre = proveedorNombre;
+    
+    public String getBanco() {
+        return banco;
     }
-
-    public void setProveedorContacto(String proveedorContacto) {
-        this.proveedorContacto = proveedorContacto;
+    
+    void setBanco(String banco) {
+    	this.banco = banco;
     }
-
-   
+    
+    public String getCuenta() {
+        return cuenta;
+    }
+    
+    void setCuenta(String cuenta) {
+    	this.cuenta = cuenta;
+    }
+    
+    public String getEstado() {
+        return estado;
+    }
+    
+    void setEstado(String estado) {
+    	this.estado = estado;
+    }
+    
 }
