@@ -60,7 +60,7 @@ public class Proveedores {
 		frmProveedores = new JFrame();
 		frmProveedores.setTitle("Proveedores");
 		frmProveedores.setBounds(100, 100, 940, 705);
-		frmProveedores.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmProveedores.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		frmProveedores.getContentPane().add(layeredPane, BorderLayout.CENTER);

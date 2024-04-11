@@ -53,7 +53,7 @@ public class ConsultarClientes  {
 		frmConsurtarClientes = new JFrame();
 		frmConsurtarClientes.setTitle("Consurtar Clientes");
 		frmConsurtarClientes.setBounds(100, 100, 895, 608);
-		frmConsurtarClientes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmConsurtarClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		frmConsurtarClientes.getContentPane().add(layeredPane, BorderLayout.CENTER);

@@ -59,7 +59,7 @@ public class RegistroUsuario {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 904, 716);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		frame.getContentPane().add(layeredPane, BorderLayout.CENTER);

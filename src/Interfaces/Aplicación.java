@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Choice;
@@ -14,13 +17,16 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class Aplicación extends JFrame {
+public class Aplicación extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JMenuItem mntmNewMenuItem, mntmNewMenuItem_9, mntmNewMenuItem_13, mntmNewMenuItem_16, mntmNewMenuItem_22;
+	private JButton btnCaja, btnVentas;
 
 	/**
 	 * Launch the application.
@@ -53,8 +59,9 @@ public class Aplicación extends JFrame {
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cerrar Sesión");
+		mntmNewMenuItem = new JMenuItem("Cerrar Sesión");
 		mnNewMenu.add(mntmNewMenuItem);
+		mntmNewMenuItem.addActionListener(this);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Salir");
 		mnNewMenu.add(mntmNewMenuItem_1);
@@ -88,8 +95,9 @@ public class Aplicación extends JFrame {
 		mnNewMenu_2.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu_2);
 		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Compras");
+		mntmNewMenuItem_9 = new JMenuItem("Compras");
 		mnNewMenu_2.add(mntmNewMenuItem_9);
+		mntmNewMenuItem_9.addActionListener(this);
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Ventas");
 		mnNewMenu_2.add(mntmNewMenuItem_10);
@@ -104,8 +112,9 @@ public class Aplicación extends JFrame {
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Compras");
 		mnNewMenu_3.add(mntmNewMenuItem_12);
 		
-		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Clientes");
+		mntmNewMenuItem_13 = new JMenuItem("Clientes");
 		mnNewMenu_3.add(mntmNewMenuItem_13);
+		mntmNewMenuItem_13.addActionListener(this);
 		
 		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Empleados");
 		mnNewMenu_3.add(mntmNewMenuItem_14);
@@ -113,8 +122,9 @@ public class Aplicación extends JFrame {
 		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Productos");
 		mnNewMenu_3.add(mntmNewMenuItem_15);
 		
-		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Proveedores");
+		mntmNewMenuItem_16 = new JMenuItem("Proveedores");
 		mnNewMenu_3.add(mntmNewMenuItem_16);
+		mntmNewMenuItem_16.addActionListener(this);
 		
 		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Ventas");
 		mnNewMenu_3.add(mntmNewMenuItem_17);
@@ -139,8 +149,9 @@ public class Aplicación extends JFrame {
 		mnNewMenu_5.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu_5);
 		
-		JMenuItem mntmNewMenuItem_22 = new JMenuItem("Nuevo Usuario Ctrl + U");
+		mntmNewMenuItem_22 = new JMenuItem("Nuevo Usuario Ctrl + U");
 		mnNewMenu_5.add(mntmNewMenuItem_22);
+		mntmNewMenuItem_22.addActionListener(this);
 		
 		JMenu mnNewMenu_6 = new JMenu("Perfil");
 		mnNewMenu_6.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -173,11 +184,13 @@ public class Aplicación extends JFrame {
 		JButton btnClientes = new JButton("Clientes");
 		btnClientes.setFont(new Font("Segoe UI", Font.PLAIN, 9));
 		
-		JButton btnCaja = new JButton("Caja");
+		btnCaja = new JButton("Caja");
 		btnCaja.setFont(new Font("Segoe UI", Font.PLAIN, 9));
+		btnCaja.addActionListener(this);
 		
-		JButton btnVentas = new JButton("Ventas");
+		btnVentas = new JButton("Ventas");
 		btnVentas.setFont(new Font("Segoe UI", Font.PLAIN, 9));
+		btnVentas.addActionListener(this);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -244,5 +257,38 @@ public class Aplicación extends JFrame {
 		JLabel lblNewLabel_13 = new JLabel("New label");
 		lblNewLabel_13.setBounds(30, 477, 45, 13);
 		contentPane.add(lblNewLabel_13);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == mntmNewMenuItem_9) {
+			Compras compraFrame = new Compras();
+			compraFrame.setVisible(true);
+		}
+		else if (e.getSource() == btnCaja) {
+			resumenCaja caja = new resumenCaja();
+			caja.setVisible(true);
+		}
+		else if(e.getSource() == btnVentas) {
+			realizarVenta ventas = new realizarVenta();
+			ventas.setVisible(true);
+		}
+		else if (e.getSource() == mntmNewMenuItem_13) {
+			ConsultarClientes.main(null);
+		}
+		else if (e.getSource() == mntmNewMenuItem_16) {
+			Proveedores.main(null);
+		}
+		else if(e.getSource() == mntmNewMenuItem_22) {
+			RegistroUsuario.main(null);
+		}
+		else if (e.getSource() == mntmNewMenuItem) {
+			JOptionPane.showMessageDialog(null, "Sesión cerrada correctamente.");
+			dispose();		    
+			inicioSesion inicioSesion = new inicioSesion();
+			inicioSesion.setVisible(true);	
+		}
+		
 	}
 }
