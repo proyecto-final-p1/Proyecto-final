@@ -87,9 +87,34 @@ public class Clientes {
 		btnNewButton_3.setBounds(669, 31, 89, 23);
 		layeredPane.add(btnNewButton_3);
 
-		mode = new DefaultTableModel(new Object[]{"ID", "Nombres", "Apellidos", "Sexo", 
-				"Cédula", "Teléfono", "Correo Electrónico", "Dirección"}, 0);
-		
+		mode = new DefaultTableModel(new Object[][] {
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null}
+		}
+				,new String[] {"ID", "Nombres", "Apellidos", "Sexo", 
+				"Cédula", "Teléfono", "Correo Electrónico", "Dirección"}
+
+		);
+			
 		table = new JTable();
 		table.setModel(mode);
 		layeredPane.add(table);

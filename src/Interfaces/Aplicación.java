@@ -25,7 +25,8 @@ public class Aplicación extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JMenuItem mntmNewMenuItem, mntmNewMenuItem_1, mntmNewMenuItem_9, mntmNewMenuItem_13, mntmNewMenuItem_16, mntmNewMenuItem_22;
+	private JMenuItem mntmNewMenuItem, mntmNewMenuItem_1, mntmNewMenuItem_9, mntmNewMenuItem_13, mntmNewMenuItem_16,
+	mntmNewMenuItem_19, mntmNewMenuItem_22;
 	private JButton btnCaja, btnVentas, btnClientes;
 
 	/**
@@ -137,8 +138,9 @@ public class Aplicación extends JFrame implements ActionListener{
 		JMenuItem mntmNewMenuItem_18 = new JMenuItem("Clientes");
 		mnNewMenu_4.add(mntmNewMenuItem_18);
 		
-		JMenuItem mntmNewMenuItem_19 = new JMenuItem("Productos");
+		mntmNewMenuItem_19 = new JMenuItem("Productos");
 		mnNewMenu_4.add(mntmNewMenuItem_19);
+		mntmNewMenuItem_19.addActionListener(this);
 		
 		JMenuItem mntmNewMenuItem_20 = new JMenuItem("Proveedores");
 		mnNewMenu_4.add(mntmNewMenuItem_20);
@@ -296,6 +298,9 @@ public class Aplicación extends JFrame implements ActionListener{
 		}
 		else if (e.getSource() == mntmNewMenuItem_1) {
 			dispose();
+		}
+		else if (e.getSource() == mntmNewMenuItem_19) {
+			ReporteProducto.main(null);
 		}
 	}
 }
