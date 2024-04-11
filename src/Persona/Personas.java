@@ -2,6 +2,7 @@ package Persona;
 
 abstract class Personas {
     
+	protected int id;
 	protected String nombre;
 	protected String apellido;
 	protected String sexo;
@@ -9,9 +10,11 @@ abstract class Personas {
 	protected String telefono;
 	protected String correo;
 	protected String direccion;
+	 
     
-    public Personas(String nombre, String apellido, String sexo, String cedula, String telefono,String correo,String direccion) {
-        this.nombre = nombre;
+    public Personas(int id, String nombre, String apellido, String sexo, String cedula, String telefono,String correo,String direccion) {
+        this.id = id;
+    	this.nombre = nombre;
         this.apellido = apellido;
         this.sexo = sexo;
         this.cedula = cedula;
@@ -20,9 +23,18 @@ abstract class Personas {
         this.direccion = direccion;
     }
     
+    
+    int getId() {
+    	return id;
+	}
+	
+    void setId (int id) {
+    	this.id = id;
+    }
+    
     String getnombre() {
     	return nombre;
-    	}
+    }
     void setnombre (String nombre) {
     	this.nombre = nombre;
     }
@@ -36,35 +48,35 @@ abstract class Personas {
     
     String getSexo() {
     	return sexo;
-    	}
+    }
     void setSexo (String sexo) {
     	this.sexo = sexo;
     }
  
     String getCedula() {
     	return cedula;
-    	}
+    }
     void setCedula (String cedula) {
     	this.cedula = cedula;
     }
     
     String getTelefono() {
     	return telefono;
-    	}
+    }
     void setTelefono (String telefono) {
     	this.telefono = telefono;
     }
     
     String getCorreo() {
     	return correo;
-    	}
+    }
     void setCorreo (String correo) {
     	this.correo = correo;
     }
     
     String getDireccion() {
     	return direccion;
-    	}
+    }
     void setDireccion (String direccion) {
     	this.direccion = direccion;
     }

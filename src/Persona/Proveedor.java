@@ -1,4 +1,6 @@
-package Producto;
+package Persona;
+
+import Producto.Productos;
 
 public class Proveedor extends Productos {
     private String proveedorNombre;
