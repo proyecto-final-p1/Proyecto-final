@@ -4,19 +4,24 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 
-public class inicioSesion extends JFrame {
+public class inicioSesion extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField passwordField;
+	private JButton btnNewButton, btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -67,23 +72,40 @@ public class inicioSesion extends JFrame {
 		lblNewLabel_3.setBounds(399, 221, 73, 21);
 		contentPane.add(lblNewLabel_3);
 		
-		JButton btnNewButton = new JButton("Ingresar");
+		btnNewButton = new JButton("Ingresar");
 		btnNewButton.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		btnNewButton.setBounds(381, 356, 91, 21);
 		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(this);
 		
-		JButton btnNewButton_1 = new JButton("Salir");
+		btnNewButton_1 = new JButton("Salir");
 		btnNewButton_1.setBounds(523, 356, 91, 21);
 		contentPane.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(this);
 		
 		textField = new JTextField();
 		textField.setBounds(399, 158, 181, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(399, 271, 181, 19);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(399, 271, 181, 19);
+		contentPane.add(passwordField);
+		passwordField.setColumns(10);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == btnNewButton) {
+			String usuario = textField.getText();
+			JOptionPane.showMessageDialog(null, "Bienvenido/a " + usuario + ".");
+			Aplicación aplicacion = new Aplicación();
+			aplicacion.setVisible(true);
+			dispose();
+		}
+		if (e.getSource() == btnNewButton_1) {
+			dispose();
+		}
 	}
 }
