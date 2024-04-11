@@ -15,7 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 import javax.swing.JComboBox;
 
-public class ConsultarClientes {
+public class ConsultarClientes  {
 
 	private JFrame frmConsurtarClientes;
 	private JTable table;
